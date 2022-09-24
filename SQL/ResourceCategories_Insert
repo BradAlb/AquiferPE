@@ -1,0 +1,51 @@
+USE [CnmPro]
+GO
+/****** Object:  StoredProcedure [dbo].[ResourceCategories_Insert]    Script Date: 9/23/2022 6:52:58 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Author:		Bradley Loewen
+-- Create date: 08/29/2022
+-- Description:	Resource Categories Insert
+-- Code Reviewer: ********* *********
+
+
+-- MODIFIED BY: 
+-- MODIFIED DATE:
+-- Code Reviewer: 
+-- Note: 
+
+ALTER proc [dbo].[ResourceCategories_Insert]
+			   @Category nvarchar(120)
+			   ,@Id int OUTPUT
+
+/*
+	Declare @Id int = 0
+
+	Declare 
+		    @Name nvarchar(120) = 'Inserted Category'
+
+	Execute dbo.ResourceCategories_Insert 
+			   @Name 
+			   ,@Id OUTPUT
+
+			Select @Id
+
+			Select *
+			From dbo.ResourceCategories
+			Where Id = @Id
+*/
+
+as
+
+BEGIN
+
+	INSERT INTO [dbo].[ResourceCategories]
+           ([Category])
+     VALUES
+           (@Category)
+
+	SET @Id = SCOPE_IDENTITY()
+
+END
