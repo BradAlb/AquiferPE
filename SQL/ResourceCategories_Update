@@ -1,0 +1,49 @@
+USE [CnmPro]
+GO
+/****** Object:  StoredProcedure [dbo].[ResourceCategories_Update]    Script Date: 9/23/2022 6:54:03 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Author:		Bradley Loewen
+-- Create date: 08/29/2022
+-- Description:	Resource Categories Update
+-- Code Reviewer: ********* ********
+
+
+-- MODIFIED BY: 
+-- MODIFIED DATE:
+-- Code Reviewer: 
+-- Note: 
+
+ALTER proc [dbo].[ResourceCategories_Update]
+			   @Category nvarchar(120)
+			   ,@Id int 
+
+/*
+	Declare @Id int = 12
+
+	Declare 
+		    @Name nvarchar(120) = 'Updated Name'
+
+			Select *
+			From dbo.ResourceCategories
+			Where Id = @Id
+
+	Execute dbo.ResourceCategories_Update 
+			   @Name 
+			   ,@Id
+			Select *
+			From dbo.ResourceCategories
+			Where Id = @Id
+*/
+
+as
+
+BEGIN
+
+	UPDATE [dbo].[ResourceCategories]
+       SET [Category] = @Category
+          
+    WHERE Id = @Id
+END
