@@ -1,0 +1,104 @@
+USE [CnmPro]
+GO
+/****** Object:  StoredProcedure [dbo].[Resources_Details_ByLocationType]    Script Date: 9/23/2022 6:36:31 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Author:		Bradley Loewen
+-- Create date: 08/30/2022
+-- Description:	Resources Select By Location Type
+-- Code Reviewer: Heriberto Martinez
+
+
+-- MODIFIED BY: 
+-- MODIFIED DATE:
+-- Code Reviewer: 
+-- Note: 
+
+
+ALTER proc [dbo].[Resources_Details_ByLocationType]    
+		@LocationTypeId int
+		,@PageIndex int 
+        ,@PageSize int
+
+AS
+
+/*
+	
+	Declare @LocationTypeId int = 3
+			,@PageIndex int = 0
+			,@PageSize int = 3
+
+	Execute dbo.Resources_Details_ByLocationType
+					@LocationTypeId
+					,@PageIndex 
+					,@PageSize 
+
+*/
+
+BEGIN
+
+	Declare @offset int = @PageIndex * @PageSize
+
+          SELECT  r.Id
+				  ,r.Name
+				  ,r.Headline
+				  ,r.Description
+				  ,r.Logo
+				  ,rc.Id as ResourceCategoryId
+				  ,rc.Category as ResourceCategory
+				  ,o.Id as OrganizationId
+				  ,o.OrganizationTypeId as OrganizationType
+				  ,o.Name as OrganizationName
+				  ,o.Headline as OrganizationHeadline
+				  ,o.Description as OrganizationDescription
+				  ,o.Logo as OrganizationLogo
+				  ,l.Id as LocationId
+				  ,lt.Id as LocationTypeId
+				  ,lt.Name as LocationTypeName
+				  ,l.LineOne
+				  ,l.LineTwo
+				  ,l.City
+				  ,l.Zip
+				  ,s.Id as StateId
+				  ,s.Code as StateCode
+				  ,s.Name as StateName
+				  ,l.Latitude
+				  ,l.Longitude
+				  ,l.DateCreated as LocationDateCreated
+				  ,l.DateModified as LocationDateModified
+				  ,l.CreatedBy as LocationCreatedBy
+				  ,l.ModifiedBy as LocationModifiedBy
+				  ,o.Phone as OrganizationPhone
+				  ,o.SiteUrl as OrganizationSiteUrl
+				  ,o.DateCreated as OrganizationDateCreated
+				  ,o.DateModified as OrganizationDateModified
+				  ,o.CreatedBy as OrganizationCreatedBy
+				  ,r.ContactName
+				  ,r.ContactEmail
+				  ,r.Phone
+				  ,r.SiteUrl
+				  ,r.DateCreated
+				  ,r.DateModified
+				  ,r.CreatedBy
+				  ,r.ModifiedBy
+				  ,TotalCount = COUNT(1) OVER()
+	
+	FROM     dbo.Organizations as o inner join dbo.Resources as r
+							on o.Id = r.OrgId
+					inner join dbo.ResourceCategories as rc
+							on rc.Id = r.ResourceCategoryId
+					inner join dbo.Locations as l
+							on o.LocationId = l.Id
+					inner join dbo.LocationTypes as lt
+							on l.LocationTypeId = lt.Id
+					inner join dbo.States as s
+							on l.StateId = s.Id
+	Where lt.Id = @LocationTypeId
+
+	ORDER BY [Id] 
+	OFFSET @offSet Rows
+	Fetch Next @PageSize Rows ONLY
+
+END
