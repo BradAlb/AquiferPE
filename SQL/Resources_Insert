@@ -1,0 +1,105 @@
+USE [CnmPro]
+GO
+/****** Object:  StoredProcedure [dbo].[Resources_Insert]    Script Date: 9/23/2022 6:37:28 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- Author:		Bradley Loewen
+-- Create date: 08/24/2022
+-- Description:	Resources Insert
+-- Code Reviewer: **** ******
+
+
+-- MODIFIED BY: 
+-- MODIFIED DATE:
+-- Code Reviewer: 
+-- Note: 
+
+ALTER proc [dbo].[Resources_Insert]
+			   @Name nvarchar(200)
+			   ,@Headline nvarchar(200)
+			   ,@Description nvarchar(1000)
+			   ,@Logo nvarchar(255)
+			   ,@ResourceCategoryId int
+			   ,@OrgId int
+			   ,@ContactName nvarchar(200)
+			   ,@ContactEmail nvarchar(255)
+			   ,@Phone nvarchar(50)
+			   ,@SiteUrl nvarchar(255)
+			   ,@CreatedBy int
+			   ,@Id int OUTPUT
+
+/*
+	Declare @Id int = 0
+
+	Declare 
+		    @Name nvarchar(200) = 'Inserted Name With Created By Id'
+			,@Headline nvarchar(200) = 'Inserted Headline'
+			,@Description nvarchar(1000) = 'Inserted Desc'
+			,@Logo nvarchar(255) = 'Inserted Logo'
+			,@ResourceCategoryId int = 4
+			,@OrgId int = 3
+			,@ContactName nvarchar(200) = 'Inserted Contact Name'
+			,@ContactEmail nvarchar(255) = 'Inserted Contact Email'
+			,@Phone nvarchar(50) = 'Inserted Phone'
+			,@SiteUrl nvarchar(255) = 'Inserted SiteUrl'
+			,@CreatedBy int = 3
+
+	Execute dbo.Resources_Insert 
+			   @Name 
+			   ,@Headline 
+			   ,@Description 
+			   ,@Logo 
+			   ,@ResourceCategoryId 
+			   ,@OrgId 
+			   ,@ContactName 
+			   ,@ContactEmail
+			   ,@Phone 
+			   ,@SiteUrl 
+			   ,@CreatedBy
+			   ,@Id OUTPUT
+
+			Select @Id
+
+			Select *
+			From dbo.Resources
+			Where Id = @Id
+*/
+
+as
+
+BEGIN
+
+	INSERT INTO [dbo].[Resources]
+           ([Name]
+           ,[Headline]
+           ,[Description]
+           ,[Logo]
+           ,[ResourceCategoryId]
+           ,[OrgId]
+           ,[ContactName]
+		   ,[ContactEmail]
+		   ,[Phone]
+		   ,[SiteUrl]
+		   ,[CreatedBy]
+		   ,[ModifiedBy])
+     VALUES
+           (@Name 
+			   ,@Headline 
+			   ,@Description 
+			   ,@Logo 
+			   ,@ResourceCategoryId 
+			   ,@OrgId 
+			   ,@ContactName 
+			   ,@ContactEmail
+			   ,@Phone 
+			   ,@SiteUrl
+			   ,@CreatedBy
+			   ,@CreatedBy)
+
+	SET @Id = SCOPE_IDENTITY()
+
+END
