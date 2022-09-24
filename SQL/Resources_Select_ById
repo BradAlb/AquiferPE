@@ -1,0 +1,54 @@
+USE [CnmPro]
+GO
+/****** Object:  StoredProcedure [dbo].[Resources_Select_ById]    Script Date: 9/23/2022 6:42:34 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Author:		Bradley Loewen
+-- Create date: 08/24/2022
+-- Description:	Resources Select By Id
+-- Code Reviewer: **** ******
+
+
+-- MODIFIED BY: 
+-- MODIFIED DATE:
+-- Code Reviewer: 
+-- Note: 
+
+ALTER proc [dbo].[Resources_Select_ById]    
+		@Id int
+
+
+AS
+
+/*
+	
+	Declare @Id int = 53;
+
+	Execute dbo.Resources_Select_ById @Id
+
+*/
+
+BEGIN
+
+     SELECT 
+		   [Id]
+		   ,[Name]
+           ,[Headline]
+           ,[Description]
+           ,[Logo]
+           ,[ResourceCategoryId]
+           ,[OrgId]
+           ,[ContactName]
+		   ,[ContactEmail]
+		   ,[Phone]
+		   ,[SiteUrl]
+		   ,[DateCreated]
+		   ,[DateModified]
+		   ,[CreatedBy]
+		   ,[ModifiedBy]
+	FROM [dbo].[Resources]
+	WHERE	[Id] = @Id
+
+END
