@@ -1,0 +1,95 @@
+USE [CnmPro]
+GO
+/****** Object:  StoredProcedure [dbo].[Resources_Update]    Script Date: 9/23/2022 6:48:12 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+-- Author:		Bradley Loewen
+-- Create date: 08/24/2022
+-- Description:	Resources Update
+-- Code Reviewer: **** ******
+
+
+-- MODIFIED BY: 
+-- MODIFIED DATE:
+-- Code Reviewer: 
+-- Note: 
+
+ALTER proc [dbo].[Resources_Update]
+			   @Name nvarchar(200)
+			   ,@Headline nvarchar(200)
+			   ,@Description nvarchar(1000)
+			   ,@Logo nvarchar(255)
+			   ,@ResourceCategoryId int
+			   ,@OrgId int
+			   ,@ContactName nvarchar(200)
+			   ,@ContactEmail nvarchar(255)
+			   ,@Phone nvarchar(50)
+			   ,@SiteUrl nvarchar(255)
+			   ,@ModifiedBy int
+			   ,@Id int 
+
+/*
+	Declare @Id int = 13
+
+	Declare 
+		    @Name nvarchar(200) = 'Updated Name'
+			,@Headline nvarchar(200) = 'Updated Headline'
+			,@Description nvarchar(1000) = 'Updated Desc'
+			,@Logo nvarchar(255) = 'Updated Logo'
+			,@ResourceCategoryId int = 4
+			,@OrgId int = 3
+			,@ContactName nvarchar(200) = 'Updated Contact Name'
+			,@ContactEmail nvarchar(255) = 'Updated Contact Email'
+			,@Phone nvarchar(50) = 'Updated Phone'
+			,@SiteUrl nvarchar(255) = 'Updated SiteUrl'
+			,@ModifiedBy int = 1
+
+			Select *
+			From dbo.Resources
+			Where Id = @Id
+
+	Execute dbo.Resources_Update 
+			   @Name 
+			   ,@Headline 
+			   ,@Description 
+			   ,@Logo 
+			   ,@ResourceCategoryId 
+			   ,@OrgId 
+			   ,@ContactName 
+			   ,@ContactEmail
+			   ,@Phone 
+			   ,@SiteUrl 
+			   ,@ModifiedBy
+			   ,@Id 
+
+			Select *
+			From dbo.Resources
+			Where Id = @Id
+*/
+
+as
+
+BEGIN
+
+	Declare @DateNow datetime2(7) = getutcdate()
+
+	UPDATE [dbo].[Resources]
+       SET [Name] = @Name
+           ,[Headline] = @Headline
+           ,[Description] = @Description
+           ,[Logo] = @Logo
+           ,[ResourceCategoryId] = @ResourceCategoryId
+           ,[OrgId] = @OrgId
+           ,[ContactName] = @ContactName
+		   ,[ContactEmail] = @ContactEmail
+		   ,[Phone] = @Phone
+		   ,[SiteUrl] = @SiteUrl
+		   ,[DateModified] = @DateNow
+		   ,[ModifiedBy] = @ModifiedBy
+    WHERE Id = @Id
+END
