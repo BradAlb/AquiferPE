@@ -1,0 +1,46 @@
+USE [CnmPro]
+GO
+/****** Object:  StoredProcedure [dbo].[Resources_Delete]    Script Date: 9/23/2022 6:23:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- Author:		Bradley Loewen
+-- Create date: 08/24/2022
+-- Description:	Resources Delete
+-- Code Reviewer: **** ******
+
+
+-- MODIFIED BY: 
+-- MODIFIED DATE:
+-- Code Reviewer: 
+-- Note: 
+
+ALTER proc [dbo].[Resources_Delete]
+		@Id int
+
+as 
+/*
+
+	Declare @Id int = 8
+
+	Select *
+	From dbo.Resources
+    WHERE Id = @Id;
+
+	Execute dbo.Resources_Delete @Id
+
+	Select *
+	From dbo.Resources
+    WHERE Id = @Id;
+
+*/
+
+BEGIN
+
+	DELETE FROM [dbo].[Resources]
+    WHERE Id = @Id;
+
+END
