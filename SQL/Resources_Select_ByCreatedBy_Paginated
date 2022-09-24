@@ -1,0 +1,67 @@
+USE [CnmPro]
+GO
+/****** Object:  StoredProcedure [dbo].[Resources_Select_ByCreatedBy_Paginated]    Script Date: 9/23/2022 6:40:24 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Author:		Bradley Loewen
+-- Create date: 08/24/2022
+-- Description:	Resources Select By Creator
+-- Code Reviewer: **** ******
+
+
+-- MODIFIED BY: 
+-- MODIFIED DATE:
+-- Code Reviewer: 
+-- Note: 
+
+ALTER proc [dbo].[Resources_Select_ByCreatedBy_Paginated]    
+		@CreatedById int
+		,@PageIndex int 
+        ,@PageSize int
+
+AS
+
+/*
+	
+	Declare @CreatedById int = 118
+			,@PageIndex int = 0
+			,@PageSize int = 3
+
+	Execute dbo.Resources_Select_ByCreatedBy_Paginated 
+					@CreatedById
+					,@PageIndex 
+					,@PageSize 
+
+*/
+
+BEGIN
+
+	Declare @offset int = @PageIndex * @PageSize
+
+           SELECT 
+		   [Id]
+		   ,[Name]
+           ,[Headline]
+           ,[Description]
+           ,[Logo]
+           ,[ResourceCategoryId]
+           ,[OrgId]
+           ,[ContactName]
+		   ,[ContactEmail]
+		   ,[Phone]
+		   ,[SiteUrl]
+		   ,[DateCreated]
+		   ,[DateModified]
+		   ,[CreatedBy]
+		   ,[ModifiedBy]
+		   ,TotalCount = COUNT(1) OVER()
+	FROM [dbo].[Resources]
+	WHERE	[CreatedBy] = @CreatedById
+
+	ORDER BY [Id] 
+	OFFSET @offSet Rows
+	Fetch Next @PageSize Rows ONLY
+
+END
