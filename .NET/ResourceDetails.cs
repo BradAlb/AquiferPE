@@ -1,0 +1,28 @@
+using Aquifer.Models.Domain.Organizations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Aquifer.Models.Domain.Resource
+{
+    public class ResourceDetails 
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Headline { get; set; }
+        public string Description { get; set; }
+        public string Logo { get; set; }
+        public LookUp ResourceCategory { get; set; }
+        public Organization Organization { get; set; }
+        public string ContactName { get; set; }
+        public string ContactEmail { get; set; }
+        public string Phone { get; set; }
+        public string SiteUrl { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        public int CreatedBy { get; set; }
+        public int ModifiedBy { get; set; }
+    }
+}
